@@ -103,6 +103,15 @@ def deleteMenuItem(restaurant_id,menu_id):
         return render_template(
             'deletemenuitem.html', restaurant_id=restaurant_id, menu_id=menu_id, item=DeletedItem)
 ##API ENDPONT
+
+
+@app.route('/restaurants/JSON')
+def restaurantsJSON():
+    items = session.query(Restaurant).all()
+    
+    return jsonify(MenuItems=[i.serialize for i in items])
+
+
 @app.route('/restaurants/<int:restaurant_id>/menu/JSON')
 def restaurantMenuJSON(restaurant_id):
     restaurant = session.query(Restaurant).filter_by(id=restaurant_id).one()
@@ -111,10 +120,11 @@ def restaurantMenuJSON(restaurant_id):
     return jsonify(MenuItems=[i.serialize for i in items])
 
 
-@app.route('/restaurants/JSON')
-def restaurantJSON():
-    items = session.query(Restaurant).filter_by().all()
-    
+@app.route('/restaurants/<int:restaurant_id>/menu/<int:menu_id>/JSON')
+def specificMenuJSON(restaurant_id,menu_id):
+    restaurant = session.query(Restaurant).filter_by(id=restaurant_id).one()
+    items = session.query(MenuItem).filter_by(
+        id=menu_id).all()
     return jsonify(MenuItems=[i.serialize for i in items])
 if __name__ == '__main__': 
     app.secret_key = "supersecretkey"
