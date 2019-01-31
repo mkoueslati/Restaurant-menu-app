@@ -1,0 +1,27 @@
+<html>
+
+<body>
+
+<h1>all restaurants</h1>
+
+<a href='/restaurant/new'>Create new Restaurant</a>
+
+{% for i in restaurants %}
+
+<div>
+
+<p>{{i.name}}</p>
+
+<a href='/restaurant/1'>show</a>
+</br>
+<a href='/restaurant/1/edit'>Edit</a>
+</br>
+<a href='/restaurant/1/delete'>Delete</a>
+
+</div>
+
+
+{% endfor %}
+</body>
+
+</html>
